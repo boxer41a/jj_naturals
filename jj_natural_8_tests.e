@@ -232,7 +232,7 @@ feature -- Test routines (Comparison)
 		local
 			a, b: JJ_NATURAL
 			r1, r2: INTEGER
-			rand: JJ_RANDOM
+--			rand: JJ_RANDOM
 			i: INTEGER
 		do
 --			create rand.make
