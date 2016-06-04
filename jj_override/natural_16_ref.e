@@ -36,27 +36,27 @@ feature -- Access
 		end
 
 	jj_item: like item
-			-- The value of Current.  The effected versions must wrap
-			-- a call to `item'.  This was required because naming this
-			-- `jj_item' give a "Redeclaration changes expansion status" error
+			-- The value of Current.  The effected versions must wrap a call to
+			-- `item'.  This was required because naming this `jj_item' gives
+			-- a "Redeclaration changes expansion status" error.
 		do
 			Result := item
 		end
 
 	item: NATURAL_32
-			-- Integer value
+			-- Integer value.  Really a natural (i.e. non-negative) number.
 		external
 			"built_in"
 		end
 
 	hash_code: INTEGER
-			-- Hash code value
+			-- Hash code value.
 		do
 			Result := item
 		end
 
 	sign: INTEGER
-			-- Sign value (0, -1 or 1)
+			-- Sign value (0, -1 or 1).
 		do
 			if item > 0 then
 				Result := 1
@@ -68,21 +68,21 @@ feature -- Access
 		end
 
 	one: like Current
-			-- Neutral element for "*" and "/"
+			-- Neutral element for "*" and "/".
 		do
 			create Result
 			Result.set_item (1)
 		end
 
 	zero: like Current
-			-- Neutral element for "+" and "-"
+			-- Neutral element for "+" and "-".
 		do
 			create Result
 			Result.set_item (0)
 		end
 
 	fifteen: like Current
-			-- Useful for percondition in `to_hex_character'
+			-- Useful for percondition in `to_hex_character'.
 		do
 			create Result
 			Result.set_item (15)

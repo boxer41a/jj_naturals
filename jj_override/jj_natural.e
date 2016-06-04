@@ -1,14 +1,14 @@
 note
 	description: "[
-		I added this class to the base cluster as a common	ancestor to the
-		NATURAL_xx_REF classes so that it lies is between NUMERIC and NATURAL_xx,
-		mainly to abstract the use of	the bit-shift features.
+		I added this class to the base cluster as a common ancestor to the
+		NATURAL_xx_REF classes so that it lies between NUMERIC and NATURAL_xx,
+		mainly to abstract the bit-shift features.
 
 		To use this cluster add this class [or an empty class named JJ_NATURAL]
-		to the base/elks/kernel cluster and include the "jj_naturals/jj_override"
+		to the base/elks/kernel cluster and include "jj_naturals/jj_override"
 		cluster in the project.  Be sure to make it non-recursive.  (A class
-		named JJ_NATURAL must be added to the base to give the override something
-		to latch on to.)
+		named JJ_NATURAL must be added to the base to give the override
+		something to latch on to.)
 
 		I made the following modifications to the NATURAL_xx_REF classes:
 
@@ -20,27 +20,28 @@ note
 				Manu, the compiler ignores, though it allows, attributes
 				when they are added to any basic type.
 			4) Declared as deferred most [if not all] the featues that are
-				defined in the original NATURAL_REF_xx classes.  Assertions
+				defined in the original NATURAL_xx_REF classes.  Assertions
 				are included in these features but removed from the effected
 				versions.
-			5) Had to add `jj_item', requiring descendents to effect this feature
-				to wrap a call to `item', because declaring `item' as deferred
-				here gives "Redeclaration changes expansion status error".
-				PROBLEM: this forces a featur call were it was direct access
-				through external implementation before.
+			5) Had to add `jj_item', requiring descendents to effect this
+				feature in order to wrap a call to `item', because declaring
+				`item' as deferred here gives "Redeclaration changes expansion
+				status error".
+				PROBLEM: this forces a feature call instead of direct access
+				through external implementation as before.
 			6) Frozen features are declared here and deleted from decendents.
 			7) Moved the pre- and post-conditions of `integer_remainder'
-				up to JJ_NATURAL.  (Why do the other fetures not have
+				up to {JJ_NATURAL}.  (Why do the other fetures not have
 				similar assertions?)
-			8) The comments on the conversion features was reworded from "conert
-				`jj_item' into an NATURAL_xx value" to "A new object equivalent
-				to Current."  (Saying "convert" implies Current is somehow
-				modified, which is not the case.)
+			8) The comments on the conversion features were reworded from
+				"convert `jj_item' into an NATURAL_xx value" to "A new object
+				equivalent to Current."  (Saying "convert" implies Current is
+				somehow	modified, which is not the case.)
 			9) Reworked `to_hex_string' and `to_hex_character' and defined them
-				in this class instead of in the NATURAL_xx_REF classes
-			10) Changed feature `divisible' to `is_divisible' and `exponetialbe'
-				 to `is_exponentiable'
-			11) Deleted `unapplicable_opposite' from rename clause, and added 
+				in this class instead of in the NATURAL_xx_REF classes.
+			10) Changed feature `divisible' to `is_divisible' and `exponetiable'
+				 to `is_exponentiable'.
+			11) Deleted `unapplicable_opposite' from rename clause, and added
 				check statement to `opposite' to prevent calling.
 			12) NO... Added modifying bit operations (e.g. `and_ed') corresponding to
 				the original, non-modifying versions.  NO...did not work
@@ -89,40 +90,41 @@ inherit
 feature -- Access
 
 	jj_item: JJ_NATURAL
-			-- The value of Current.  The effected versions must wrap
-			-- a call to `item'.  This was required because naming this
-			-- `jj_item' give a "Redeclaration changes expansion status" error
+			-- The value of Current.  The effected versions must wrap a call to
+			-- `item'.  This was required because naming this `jj_item' gives
+			-- a "Redeclaration changes expansion status" error.
 		deferred
 		end
 
 	bit_count: INTEGER
-			-- The number of bits used to represent Current
+			-- The number of bits used to represent Current.
 		deferred
 		end
 
 	zero: like Current
-			-- Neutral element for "+" and "-"
+			-- Neutral element for "+" and "-".
 		deferred
 		end
 
 	one: like Current
-			-- Neutral element for "*" and "/"
+			-- Neutral element for "*" and "/".
 		deferred
 		end
 
 	fifteen: like Current
-			-- Useful for percondition in `to_hex_character'
+			-- Useful for percondition in `to_hex_character'.
 		deferred
 		end
 
 	min_value: like Current
-			-- The smallest allowed value for Current
+			-- The smallest allowed value for Current.
 		deferred
 		ensure
 			result_is_zero: Result = zero
 		end
 
 	max_value: JJ_NATURAL
+			-- The largest value allowed for Current.
 		deferred
 		end
 
@@ -144,15 +146,21 @@ feature -- Comparison
 
 feature -- Element change
 
-	set_item (i: like jj_item)
-			-- Make `i' the `jj_item' value.
-			-- "Built-in" in the descendents
+	set_item (a_value: like jj_item)
+			-- Set `jj_item' to `a_value'.
+			-- "Built-in" in the descendents.
 		deferred
 		ensure
 			item_set: jj_item = i
 		end
 
 feature -- Status report
+
+	is_even: BOOLEAN
+			-- Is Current an even number?
+		do
+			Result := bit_test (1)
+		end
 
 	is_divisible (other: like Current): BOOLEAN
 			-- May current object be divided by `other'?
@@ -199,17 +207,17 @@ feature -- Status report
 feature -- Basic operations
 
 --	add (a_other: like Current)
---			-- Change Current to the sum of Current and `a_other'			
+--			-- Change Current to the sum of Current and `a_other'
 --		deferred
 --		end
 
 	integer_quotient alias "//" (other: like Current): like Current
-			-- Integer division of Current by `other'
+			-- Integer division of Current by `other'.
 		deferred
 		end
 
 	integer_remainder alias "\\" (other: like Current): like Current
-			-- Remainder of the integer division of Current by `other'
+			-- Remainder of the integer division of Current by `other'.
 		require
 			other_exists: other /= Void
 			good_divisor: is_divisible (other)
@@ -219,12 +227,12 @@ feature -- Basic operations
 		end
 
 	power alias "^" (other: REAL_64): REAL_64
-			-- Integer power of Current by `other'
+			-- Integer power of Current by `other'.
 		deferred
 		end
 
 	opposite alias "-": like Current
-			-- Unary minus (not applicable)
+			-- Unary minus (not applicable).
 		do
 			check
 				do_not_call: false then
@@ -244,13 +252,13 @@ feature -- Conversion
 
 	as_same_type (a_other: JJ_NATURAL): JJ_NATURAL
 			-- Result of converting `a_other' to the same type as Current,
-			-- with possible data lose
+			-- with possible data lose.
 		deferred
 		end
 
 	as_other_type (a_other: JJ_NATURAL): JJ_NATURAL
 			-- Result of converting Current to the type of `a_other',
-			-- with possible data lose
+			-- with possible data lose.
 		do
 				-- Check the type of `a_other'
 			if a_other.same_type (create {NATURAL_8}) then
@@ -495,8 +503,9 @@ feature -- Conversion
 		end
 
 	frozen byte_mask (a_byte: INTEGER): like Current
-			-- Build a bit pattern with zeros in all the bytes except the byte indicated
-			-- by `a_byte', where `a_byte' starts at one for the low-order byte.
+			-- Build a bit pattern with zeros in all the bytes except the byte
+			-- indicated by `a_byte', where `a_byte' starts at one for the
+			-- low-order byte.
 			-- For example, for a 32 bit number (`n' between 1 and 4) for `n'
 			-- set to 2:  00000000 00000000 11111111 00000000.
 		require
@@ -517,7 +526,8 @@ feature -- Conversion
 				Result := Result + one
 				i := i + 1
 			end
-				-- Shift the eight one's so they are in the byte indecated by `a_byte'
+				-- Shift the eight one's so they are in the byte indicated
+				-- by `a_byte'
 			Result := Result.bit_shift_left ((a_byte - 1) * 8)
 		end
 
@@ -565,6 +575,42 @@ feature -- Conversion
 		end
 
 feature -- Bit operations
+
+	most_significant_bit, log_base_two: INTEGER
+			-- The index (starting with one at the least significant bit
+			-- and increasing up to `bit_count' for the most significant
+			-- bit) of the most significant bit that is set.
+		local
+			n: JJ_NATURAL
+			b: ARRAY [JJ_NATURAL]
+			s: ARRAY [INTEGER]
+			i: INTEGER
+		do
+				-- Naive approach
+			from n := Current		-- copy semantics for basic types
+			until n <= zero
+			loop
+				Result := Result + 1
+				n := n.bit_shift_right (1)
+			end
+				-- There should be a O(lg(n)) approach.  Fix me!
+				-- See https://graphics.stanford.edu/~seander/bithacks.html
+--			n := Current
+--			b := <<0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000>>
+--			s := <<1, 2, 4, 8, 16>>
+--			from i := 4
+--			until i < 0
+--			loop
+--				if n.bit_and (b[i]) > 0 then
+--					n := n.bit_shift_right (s[i])
+--					Result := Result.bit_or (s[i])
+--				end
+--				i := i - 1
+--			end
+		ensure
+			zero_result_definition: Result = zero implies Current = zero
+			result_small_enough: Result <= bit_count
+		end
 
 	bit_and alias "&" (i: like Current): like Current
 			-- Bitwise and between Current' and `i'.
