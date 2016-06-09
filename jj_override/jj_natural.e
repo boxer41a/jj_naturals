@@ -151,7 +151,7 @@ feature -- Element change
 			-- "Built-in" in the descendents.
 		deferred
 		ensure
-			item_set: jj_item = i
+			item_set: jj_item = a_value
 		end
 
 feature -- Status report
