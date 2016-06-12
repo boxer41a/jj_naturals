@@ -250,13 +250,13 @@ feature -- Conversion
 			Result := jj_item /= zero
 		end
 
-	as_same_type (a_other: JJ_NATURAL): JJ_NATURAL
+	as_same_type (a_other: JJ_NATURAL): like Current
 			-- Result of converting `a_other' to the same type as Current,
 			-- with possible data lose.
 		deferred
 		end
 
-	as_other_type (a_other: JJ_NATURAL): JJ_NATURAL
+	as_other_type (a_other: JJ_NATURAL): like a_other
 			-- Result of converting Current to the type of `a_other',
 			-- with possible data lose.
 		do
