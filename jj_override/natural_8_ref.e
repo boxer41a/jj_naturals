@@ -31,9 +31,6 @@ feature -- Access
 
 	bit_count: INTEGER = 8
 			-- The number of bits used to represent Current
---		once
---			Result := 8
---		end
 
 	jj_item: like item
 			-- The value of Current.  The effected versions must wrap
