@@ -123,7 +123,7 @@ feature -- Access
 			result_is_zero: Result = zero
 		end
 
-	max_value: JJ_NATURAL
+	max_value: like Current
 			-- The largest value allowed for Current.
 		deferred
 		end
