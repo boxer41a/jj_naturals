@@ -21,12 +21,8 @@ feature {NONE} -- Initialization
 			t: JJ_NATURAL_8_TESTS
 --			r: JJ_RANDOM_8_TESTS
 		do
-			from i := 1
-			until i > line_count
-			loop
-				print ("%N")
-				i := i + 1
-			end
+			clear_terminal
+				-- Make and run tests
 			create t
 --			t.run_all
 
@@ -34,12 +30,27 @@ feature {NONE} -- Initialization
 --			test_random_32
 --			test_random_16
 			test_random_8
---			test_range
+			test_range_8
+--			test_range_64
 --			test_range_32
 --			test_range_16
 --			test_range_8
 
 			io.put_string ("End test of random numbers %N")
+		end
+
+	clear_terminal
+			-- Print some newlines in order to simulate clearing the terminal.
+			-- Just moves previous output up and out of view.
+		local
+			i: INTEGER
+		do
+			from i := 1
+			until i > 30
+			loop
+				print ("%N")
+				i := i + 1
+			end
 		end
 
 feature -- Basic operations
@@ -100,9 +111,9 @@ feature -- Basic operations
 			r: NATURAL_8
 			frst, secd, thrd: NATURAL_8
 		do
-			jj_random_8.set_range (0, 3)
+			jj_random_8.set_range (0, 8)
 			from i := 1
-			until i > i.max_value
+			until i > 50
 			loop
 				r := jj_random_8.item
 				io.put_string (r.out + "  ")
@@ -111,20 +122,22 @@ feature -- Basic operations
 			end
 		end
 
-	test_range
+	test_range_64
 			-- Create the first few random numbers.
 		local
 			i, c: INTEGER
 			a, b: NATURAL_64
 			r: NATURAL_64
 			tab: HASH_TABLE [INTEGER, NATURAL_64]
+			arr: ARRAY [INTEGER]
 		do
-			create tab.make (50)
 			a := 100
 			b := 200
+			create tab.make (50)
+			create arr.make_filled (0, a.to_integer_32, b.to_integer_32)
 			jj_random.set_range (a, b)
 			from i := 1
-			until i > 100_000
+			until i > 10_000
 			loop
 				r := jj_random.item
 				if tab.has (r) then
@@ -132,14 +145,89 @@ feature -- Basic operations
 				else
 					tab.extend (1, r)
 				end
+				arr.put (arr.item (r.to_integer_32) + 1, r.to_integer_32)
 				jj_random.forth
 				i := i + 1
 			end
-			from i := a.as_integer_32
-			until i > b.as_integer_32
+			show_distribution (tab)
+			show_array (arr)
+		end
+
+	test_range_8
+			-- Create some 8-bit numbers.
+		local
+			i, c: INTEGER
+			a, b: NATURAL_8
+			r: NATURAL_8
+			tab: HASH_TABLE [INTEGER, NATURAL_8]
+			arr: ARRAY [INTEGER]
+		do
+			a := 10
+			b := 200
+			create tab.make (50)
+			create arr.make_filled (0, a.to_integer_32, b.to_integer_32)
+			jj_random_8.set_range (a, b)
+			from i := 1
+			until i > 30_000
 			loop
-				c := tab.item (i.as_natural_64)
-				io.put_string (i.out + " %T" + c.out + "%N")
+				r := jj_random_8.item
+				if tab.has (r) then
+					tab.force (tab.item (r) + 1, r)
+				else
+					tab.extend (1, r)
+				end
+				arr.put (arr.item (r.to_integer_32) + 1, r.to_integer_32)
+				jj_random_8.forth
+				i := i + 1
+			end
+--			show_distribution (tab)
+			show_array (arr)
+		end
+
+
+	show_distribution (a_table: HASH_TABLE [INTEGER, JJ_NATURAL])
+			-- Display a chart depicting the distribution of number in `a_table'.
+		local
+			i, c: INTEGER
+			n: JJ_NATURAL
+		do
+			from a_table.start
+			print ("%N%N")
+			print ("Distribution in table %N")
+			until a_table.after
+			loop
+				n := a_table.key_for_iteration
+				c := a_table.item_for_iteration
+				print (a_table.key_for_iteration.out + "  ")
+				from i := 1
+				until i > c
+				loop
+					print ("*")
+					i := i + 1
+				end
+				print ("%N")
+				a_table.forth
+			end
+		end
+
+	show_array (a_array: ARRAY [INTEGER_32])
+			-- Display a chart depicting distribution in order
+		local
+			i, c: INTEGER
+		do
+			print ("%N%N")
+			print ("Distribution in order %N")
+			from i := a_array.lower
+			until i > a_array.upper
+			loop
+				print (i.out + "  ")
+				from c := 1
+				until c > a_array.item (i)
+				loop
+					io.print ("*")
+					c := c + 1
+				end
+				print ("%N")
 				i := i + 1
 			end
 		end
@@ -211,44 +299,7 @@ feature -- Basic operations
 			end
 		end
 
-	test_range_8
-			-- Test distribution of 16-bit randoms
-		local
-			i, c: INTEGER
-			a, b: NATURAL_8
-			r: NATURAL_8
-			tab: HASH_TABLE [INTEGER, NATURAL_16]
-		do
-			create tab.make (50)
-			a := 0
-			b := 255
-			jj_random_8.set_range (a, b)
-			from i := 1
-			until i > 100
-			loop
-				r := jj_random_8.item
-				io.put_string ("r8 = " + r.out + "%N")
-				if tab.has (r) then
-					tab.force (tab.item (r) + 1, r)
-				else
-					tab.extend (1, r)
-				end
-				jj_random_8.forth
-				i := i + 1
-			end
-			from i := a
-			until i > b
-			loop
-				c := tab.item (i.as_natural_8)
-				io.put_string (i.out + " %T" + c.out + "%N")
-				i := i + 1
-			end
-		end
-
 feature -- Access
-
-	Line_count: INTEGER = 40
-		-- Used to clear console
 
 	rand: RANDOM
 			-- Force a compilation.

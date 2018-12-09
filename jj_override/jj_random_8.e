@@ -1,6 +1,6 @@
 note
 	description: "[
-		A 32-bit implementation of the Mersenne Twister algorithm originally
+		An 8-bit implementation of the Mersenne Twister algorithm originally
 		described in "Mersenne Twister:  A 623-Dimensionally Equidistributed
 		Uniform Pseudorandom Number Generator" by Makoto Matsumoto and Takuji
 		Nishimura.

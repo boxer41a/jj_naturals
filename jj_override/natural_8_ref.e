@@ -35,7 +35,7 @@ feature -- Access
 	jj_item: like item
 			-- The value of Current.  The effected versions must wrap
 			-- a call to `item'.  This was required because naming this
-			-- `jj_item' give a "Redeclaration changes expansion status" error
+			-- `jj_item' gives a "Redeclaration changes expansion status" error.
 		do
 			Result := item
 		end

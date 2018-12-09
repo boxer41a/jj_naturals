@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="jj_naturals" uuid="A78FC53C-0692-480A-A517-54B592FC55C6">
-	<target name="jj_naturals">
+<system xmlns="http://www.eiffel.com/developers/xml/configuration-1-15-0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.eiffel.com/developers/xml/configuration-1-15-0 http://www.eiffel.com/developers/xml/configuration-1-15-0.xsd" name="jj_naturals_demo" uuid="A78FC53C-0692-480A-A517-54B592FC55C6">
+	<target name="jj_naturals_demo">
 		<root class="JJ_NATURALS_DEMO" feature="make"/>
 		<option full_class_checking="true" cat_call_detection="none" is_attached_by_default="true" is_obsolete_routine_type="true" void_safety="all" syntax="standard">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
@@ -22,6 +22,6 @@
 				<exclude>/docs$</exclude>
 			</file_rule>
 		</cluster>
-		<override name="jj_naturals_override" location="$GITHUB\jj_naturals\jj_override\"/>
+		<override name="jj_naturals_override" location="$JJ_GITHUB\jj_naturals\jj_override\"/>
 	</target>
 </system>

@@ -1,8 +1,9 @@
 note
 	description: "[
-		I added this class to the base cluster as a common ancestor to the
-		NATURAL_xx_REF classes so that it lies between NUMERIC and NATURAL_xx,
-		mainly to abstract the bit-shift features.
+		This class is a new common ancestor to the	NATURAL_xx_REF classes setting
+		between NUMERIC and NATURAL_xx, mainly to abstract the bit-shift features.
+		
+		To use the "jj_naturals" cluster, 
 
 		To use this cluster add this class [or an empty class named JJ_NATURAL]
 		to the base/elks/kernel cluster and include "jj_naturals/jj_override"
