@@ -92,7 +92,7 @@ feature -- Access
 
 	jj_item: JJ_NATURAL
 			-- The value of Current.  The effected versions must wrap a call to
-			-- `item'.  This was required because naming this `jj_item' gives
+			-- `item'.  This was required because naming this `item' gives
 			-- a "Redeclaration changes expansion status" error.
 		deferred
 		end
