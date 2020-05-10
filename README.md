@@ -4,8 +4,6 @@ Provides an override cluster to insert a class between NUMERIC and the  NATURAL\
 Include the override cluster in a project to use the JJ\_NATURAL\_xx classes.
 
 Add an empty class called JJ_NATURAL to the "library/base/elks/kernel" cluster as described here:
-
- ![](JJ_NATURAL.png?raw=true)
  
 
 See [big number classes](http://github.com/boxer41a/jj_big_numbers) or the [secure-hash-algorithm classes](http://github.com/boxer41a/jj_sha) for example uses of this cluster.

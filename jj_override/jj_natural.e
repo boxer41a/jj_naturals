@@ -3,14 +3,6 @@ note
 		This class is a new common ancestor to the	NATURAL_xx_REF classes setting
 		between NUMERIC and NATURAL_xx, mainly to abstract the bit-shift features.
 		
-		To use the "jj_naturals" cluster, 
-
-		To use this cluster add this class [or an empty class named JJ_NATURAL]
-		to the base/elks/kernel cluster and include "jj_naturals/jj_override"
-		cluster in the project.  Be sure to make it non-recursive.  (A class
-		named JJ_NATURAL must be added to the base to give the override
-		something to latch on to.)
-
 		I made the following modifications to the NATURAL_xx_REF classes:
 
 			1) Added JJ_NATURAL as ancestor

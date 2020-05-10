@@ -78,7 +78,6 @@ feature -- Basic operations
 			is_less_2
 			is_less_3
 			is_less_4
---			is_less_5
 			byte_mask
 		end
 
@@ -228,29 +227,7 @@ feature -- Test routines (Comparison)
 			line
 		end
 
-	is_less_5
-		local
-			a, b: JJ_NATURAL
-			r1, r2: INTEGER
---			rand: JJ_RANDOM
-			i: INTEGER
-		do
---			create rand.make
---			rand.set_range (0, 255)
---			from i := 1
---			until i > 50
---			loop
---				r1 := rand.i_th (i)
---				r2 := rand.i_th (i * 2)
---				a := value_from_string (r1.to_natural_8.out)
---				b := value_from_string (r2.to_natural_8.out)
---				test (".is_less_5  " + a.out + " < " + b.out + ")",
---						 (a < b).out, (a < b).out)
---				i := i + 1
---			end
-		end
-
-feature -- Test routines (Conversion
+feature -- Test routines (Conversion)
 
 	byte_mask
 		do
