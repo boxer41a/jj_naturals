@@ -101,6 +101,9 @@ feature -- Access
 	Max_value: NATURAL_8 = 255
 			-- Maximum value Current can have
 
+	Half_mask_value: NATURAL_8 = 0xF0
+			-- Half bits (most significant) set (i.e. 11110000)
+
 feature -- Comparison
 
 	is_less alias "<" (other: like Current): BOOLEAN
@@ -344,6 +347,31 @@ feature -- Conversion
 
 feature -- Bit operations
 
+--	most_significant_bit, log_base_two: INTEGER
+--			-- The index (starting with one at the least significant bit
+--			-- and increasing up to `bit_count' for the most significant
+--			-- bit) of the most significant bit that is set.
+--		local
+--			n: JJ_NATURAL
+--			b: ARRAY [like Current]
+--			s: ARRAY [like Current]
+--			i: INTEGER
+--		do
+--				-- See https://graphics.stanford.edu/~seander/bithacks.html
+--			n := Current
+--			b := <<0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000>>
+--			s := <<1, 2, 4, 8, 16>>
+--			from i := 4
+--			until i < 0
+--			loop
+--				if n.bit_and (b[i]) > 0 then
+--					n := n.bit_shift_right (s[i])
+--					Result := Result.bit_or (s[i])
+--				end
+--				i := i - 1
+--			end
+--		end
+
 	bit_and alias "&" (i: like Current): like Current
 			-- Bitwise and between Current' and `i'.
 		do
@@ -432,6 +460,22 @@ feature -- Output
 		do
 			create Result.make (3)
 			Result.append_natural_8 (item)
+		end
+
+feature {NONE} -- Implementation
+
+	b_array: ARRAY [like Current]
+			-- Helper function for `log_base_two'
+			-- A function because cannot add attribute to built-in class
+		do
+			Result := {ARRAY [NATURAL_8]} <<0x2, 0xC, 0xF0>>
+		end
+
+	s_array: ARRAY [INTEGER]
+			-- Helper function for `log_base_two'
+			-- A function because cannot add attribute to built-in class
+		do
+			Result := {ARRAY [INTEGER]} <<1, 2, 4>>
 		end
 
 note

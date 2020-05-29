@@ -26,7 +26,7 @@ feature {NONE} -- Initialization
 			create t
 			create r
 			t.run_all
-			r.run_all
+--			r.run_all
 			io.put_string ("End test of random numbers %N")
 		end
 

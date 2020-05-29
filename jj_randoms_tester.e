@@ -124,7 +124,7 @@ feature {NONE} -- Implementation
 			loop
 				print (i.out + "  ")
 				from c := 1
-				until c > array.item
+				until c > array.item (i)
 				loop
 					io.print ("*")
 					c := c + 1
@@ -172,19 +172,19 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Implementation
 
-	random: JJ_RANDOM [JJ_NATURAL]
+	random: JJ_NATURAL_RNG [JJ_NATURAL]
 			-- The currently selected generator on which to run tests.
 
-	random_8: JJ_RANDOM_8
+	random_8: JJ_NATURAL_8_RNG
 			-- Generator for 8-bit random numbers
 
-	random_16: JJ_RANDOM_16
+	random_16: JJ_NATURAL_16_RNG
 			-- Generator for 16-bit random numbers
 
-	random_32: JJ_RANDOM_32
+	random_32: JJ_NATURAL_32_RNG
 			-- Generator for 16-bit random numbers
 
-	random_64: JJ_RANDOM_64
+	random_64: JJ_NATURAL_64_RNG
 			-- Generator for 16-bit random numbers
 
 	array: ARRAY [INTEGER_32]

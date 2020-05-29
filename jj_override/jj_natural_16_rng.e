@@ -1,59 +1,59 @@
 note
 	description: "[
-		An 8-bit implementation of the Mersenne Twister algorithm originally
-		described in "Mersenne Twister:  A 623-Dimensionally Equidistributed
-		Uniform Pseudorandom Number Generator" by Makoto Matsumoto and Takuji
-		Nishimura.
+		Random number generator for 16-bit values.  Derived from
+		JJ_RANDOM_32, this class simply returns 16 bits of the 
+		generated 32-bit number.
 		]"
 	author: "Jimmy J. Johnson"
 
 class
-	JJ_RANDOM_8
+	JJ_NATURAL_16_RNG
 
 inherit
 
-	JJ_RANDOM [NATURAL_8]
+	JJ_NATURAL_RNG [NATURAL_16]
 
 create
 	default_create
 
 feature -- Access
 
-	Default_seed: NATURAL_8 = 47
+feature -- Access
+
+	Default_seed: NATURAL_16 = 1031
 			-- The default value used for the `seed'.
 
-feature -- Implementation
+feature {NONE} -- Implementation
 
 	integer_to_word (a_value: INTEGER): like item
 			-- Convert `a_value' to the correct type.
-			-- Needed by this class and maybe convenient to others.
 		do
-			Result := a_value.to_natural_8
+			Result := a_value.as_natural_16
 		end
 
 feature {NONE} -- Implementation (constants)
 
-	w: INTEGER = 8
+	w: INTEGER = 32
 			-- Word size (i.e. the number of bits in a word).
 
-	n: INTEGER = 1401
+	n: INTEGER = 624
 			-- The degree of recurrence.
 
 	m: INTEGER = 397
-			-- Middle word, an offset summed with a counter in `twist' to
-			-- index a particular word in `mt'.  It must be between 1 and n.
+			-- Middle word, an offset used in the recurrence relation
+			-- defining the series.
 
-	r: INTEGER = 5
+	r: INTEGER = 31
 			-- The separation point of one word, or the number of bits
 			-- of the lower bitmask, 0 <= r <= w - 1.
 
-	s: INTEGER = 3
+	s: INTEGER = 7
 			-- A bit shift.
 
-	t: INTEGER  = 4
+	t: INTEGER  = 15
 			-- A bit shift.
 
-	u: INTEGER = 5
+	u: INTEGER = 11
 			-- A bit shift.
 
 	z: INTEGER = 18
@@ -61,26 +61,26 @@ feature {NONE} -- Implementation (constants)
 			-- Was called "l" (i.e. elle) in the original and on Wiki, but
 			-- an elle looks too much like a one.
 
-	a: NATURAL_8 = 0x99
+	a: NATURAL_16 = 0x990F		--8B0DF
 			-- The coefficients of the rational normal form twist matrix.
 
-	b: NATURAL_8 = 0x9D
+	b: NATURAL_16 = 0x9D2C		--5680
 			-- A tempering bitmask.
 
-	c: NATURAL_8 = 0xEB
+	c: NATURAL_16 = 0xEF00		--C60000
 			-- A tempering bitmask.
 
-	d: NATURAL_8 = 0xFF
+	d: NATURAL_16 = 0xFFFF
 			-- A tempering bitmask.
 
-	f: NATURAL_8 = 109
-			-- Another parameter.  Picked at random.
+	f: NATURAL_16 = 	27655	--1812433253
+			-- Another parameter.
 
-	lower_mask: NATURAL_8 = 0x07
+	lower_mask: NATURAL_16 = 0x007F
 			-- Mask to obtain the lower `r' bits of a particular
 			-- value from `mt'.
 
-	upper_mask: NATURAL_8 = 0xF8
+	upper_mask: NATURAL_16 = 0xFF80
 			-- Mask to obtain the upper `w' - `r' bits of a particular
 			-- value from `mt'.
 

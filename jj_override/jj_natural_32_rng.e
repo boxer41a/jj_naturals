@@ -1,26 +1,25 @@
 note
 	description: "[
-		Random number generator for 16-bit values.  Derived from
-		JJ_RANDOM_32, this class simply returns 16 bits of the 
-		generated 32-bit number.
+		A 32-bit implementation of the Mersenne Twister algorithm originally
+		described in "Mersenne Twister:  A 623-Dimensionally Equidistributed
+		Uniform Pseudorandom Number Generator" by Makoto Matsumoto and Takuji
+		Nishimura.
 		]"
 	author: "Jimmy J. Johnson"
 
 class
-	JJ_RANDOM_16
+	JJ_NATURAL_32_RNG
 
 inherit
 
-	JJ_RANDOM [NATURAL_16]
+	JJ_NATURAL_RNG [NATURAL_32]
 
 create
 	default_create
 
 feature -- Access
 
-feature -- Access
-
-	Default_seed: NATURAL_16 = 1031
+	Default_seed: NATURAL_32 = 5489
 			-- The default value used for the `seed'.
 
 feature {NONE} -- Implementation
@@ -28,7 +27,7 @@ feature {NONE} -- Implementation
 	integer_to_word (a_value: INTEGER): like item
 			-- Convert `a_value' to the correct type.
 		do
-			Result := a_value.as_natural_16
+			Result := a_value.as_NATURAL_32
 		end
 
 feature {NONE} -- Implementation (constants)
@@ -61,26 +60,26 @@ feature {NONE} -- Implementation (constants)
 			-- Was called "l" (i.e. elle) in the original and on Wiki, but
 			-- an elle looks too much like a one.
 
-	a: NATURAL_16 = 0x990F		--8B0DF
+	a: NATURAL_32 = 0x9908B0DF
 			-- The coefficients of the rational normal form twist matrix.
 
-	b: NATURAL_16 = 0x9D2C		--5680
+	b: NATURAL_32 = 0x9D2C5680
 			-- A tempering bitmask.
 
-	c: NATURAL_16 = 0xEF00		--C60000
+	c: NATURAL_32 = 0xEFC60000
 			-- A tempering bitmask.
 
-	d: NATURAL_16 = 0xFFFF
+	d: NATURAL_32 = 0xFFFFFFFF
 			-- A tempering bitmask.
 
-	f: NATURAL_16 = 	27655	--1812433253
+	f: NATURAL_32 = 1812433253
 			-- Another parameter.
 
-	lower_mask: NATURAL_16 = 0x007F
+	lower_mask: NATURAL_32 = 0x7FFFFFFF
 			-- Mask to obtain the lower `r' bits of a particular
 			-- value from `mt'.
 
-	upper_mask: NATURAL_16 = 0xFF80
+	upper_mask: NATURAL_32 = 0xFFFF8000
 			-- Mask to obtain the upper `w' - `r' bits of a particular
 			-- value from `mt'.
 

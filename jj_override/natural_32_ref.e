@@ -57,12 +57,10 @@ feature -- Access
 		end
 
 	sign: INTEGER
-			-- Sign value (0, -1 or 1)
+			-- Sign value (0 or 1), never negative
 		do
 			if item > 0 then
 				Result := 1
-			elseif item < 0 then
-				Result := -1
 			end
 		ensure
 			three_way: Result = three_way_comparison (zero)
@@ -427,6 +425,22 @@ feature -- Output
 		do
 			create Result.make (20)
 			Result.append_natural_32 (item)
+		end
+
+feature {NONE} -- Implementation
+
+	b_array: ARRAY [like Current]
+			-- Helper function for `log_base_two'
+			-- A function because cannot add attribute to built-in class
+		do
+			Result := {ARRAY [NATURAL_32]} <<0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000>>
+		end
+
+	s_array: ARRAY [INTEGER]
+			-- Helper function for `log_base_two'
+			-- A function because cannot add attribute to built-in class
+		do
+			Result := {ARRAY [INTEGER]} <<1, 2, 4, 8, 16>>
 		end
 
 note

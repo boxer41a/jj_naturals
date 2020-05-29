@@ -431,6 +431,22 @@ feature -- Output
 			Result.append_natural_64 (item)
 		end
 
+feature {NONE} -- Implementation
+
+	b_array: ARRAY [like Current]
+			-- Helper function for `log_base_two'
+			-- A function because cannot add attribute to built-in class
+		do
+			Result := {ARRAY [NATURAL_64]} <<0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000, 0xFFFFFFFF00000000>>
+		end
+
+	s_array: ARRAY [INTEGER]
+			-- Helper function for `log_base_two'
+			-- A function because cannot add attribute to built-in class
+		do
+			Result := {ARRAY [INTEGER]} <<1, 2, 4, 8, 16, 32>>
+		end
+
 note
 	copyright: "Copyright (c) 1984-2015, Eiffel Software and others"
 	license:   "Eiffel Forum License v2 (see http://www.eiffel.com/licensing/forum.txt)"

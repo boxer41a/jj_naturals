@@ -67,18 +67,19 @@ feature -- Basic operations
 
 	run_all
 		do
-			item
-			bit_count
-			one
-			zero
-			fifteen
-			min_value
-			max_value
-			is_less_1
-			is_less_2
-			is_less_3
-			is_less_4
-			byte_mask
+--			item
+--			bit_count
+--			one
+--			zero
+--			fifteen
+--			min_value
+--			max_value
+--			is_less_1
+--			is_less_2
+--			is_less_3
+--			is_less_4
+--			byte_mask
+			most_significant_bit
 		end
 
 feature -- Test routines
@@ -261,6 +262,24 @@ feature -- Test routines (Conversion)
 			feature_name := "byte_mask (4)"
 			test ("00000000FF000000", value.byte_mask (4).to_hex_string)
 			line
+		end
+
+feature -- Test routines (bit operations)
+
+	most_significant_bit
+		local
+			n: NATURAL_8
+			i: INTEGER
+		do
+			create n
+			from
+			until i > 17
+			loop
+				io.put_string ("i = " + i.out + "     ")
+				io.put_string (n.out + "      msb = " + n.most_significant_bit.out + "%N")
+				n := n + n.one
+				i := i + 1
+			end
 		end
 
 end

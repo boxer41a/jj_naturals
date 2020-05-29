@@ -569,39 +569,54 @@ feature -- Conversion
 
 feature -- Bit operations
 
-	most_significant_bit, log_base_two: INTEGER
-			-- The index (starting with one at the least significant bit
-			-- and increasing up to `bit_count' for the most significant
-			-- bit) of the most significant bit that is set.
+	most_significant_bit: INTEGER
+			-- The index of the most significant bit that is set.
+			-- O(n) where n is the number of bits.
 		local
 			n: JJ_NATURAL
-			b: ARRAY [JJ_NATURAL]
-			s: ARRAY [INTEGER]
 			i: INTEGER
 		do
-				-- Naive approach
-			from n := Current		-- copy semantics for basic types
+				-- Naive approach, but not the same as `log_base_two'
+				-- as implied in "Bit Twiddling Hacks" at
+				-- https://graphics.stanford.edu/~seander/bithacks.html.
+				-- S. Anderson's `log_base_two' assumes zero-based indexing
+				-- and will be one off for bit position (and does not apply
+				-- to log(0), because it gives zero as answer even though
+				-- none of the bits are set.
+			from n := Current
 			until n <= zero
 			loop
 				Result := Result + 1
 				n := n.bit_shift_right (1)
 			end
-				-- There should be a O(lg(n)) approach.  Fix me!
-				-- See https://graphics.stanford.edu/~seander/bithacks.html
---			n := Current
---			b := <<0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000>>
---			s := <<1, 2, 4, 8, 16>>
---			from i := 4
---			until i < 0
---			loop
---				if n.bit_and (b[i]) > 0 then
---					n := n.bit_shift_right (s[i])
---					Result := Result.bit_or (s[i])
---				end
---				i := i - 1
---			end
 		ensure
 			zero_result_definition: Result = zero implies Current = zero
+			result_small_enough: Result <= bit_count
+		end
+
+	log_base_two: INTEGER
+			-- The base-2 log of Current
+		local
+			v: JJ_NATURAL
+			b: ARRAY [like Current]
+			s: ARRAY [INTEGER]
+			i: INTEGER
+		do
+				-- See https://graphics.stanford.edu/~seander/bithacks.html
+			v := Current
+			b := b_array
+			s := s_array
+			from i := b.count
+			until i <= 0
+			loop
+				if v.bit_and (b[i]) > zero then
+					v := v.bit_shift_right (s[i])
+					Result := Result.bit_or (s[i])
+				end
+				i := i - 1
+			end
+		ensure
+			zero_result_definition: Result = zero implies Current ~ zero
 			result_small_enough: Result <= bit_count
 		end
 
@@ -688,6 +703,18 @@ feature -- Bit operations
 	set_bit_with_mask (b: BOOLEAN; m: like Current): JJ_NATURAL
 			-- Copy of current with all 1 bits of m set to 1
 			-- if `b', 0 otherwise.
+		deferred
+		end
+
+feature {NONE} -- Implementation
+
+	b_array: ARRAY [like Current]
+			-- Helper function for `log_base_two'
+		deferred
+		end
+
+	s_array: ARRAY [INTEGER]
+			-- Helper function for `log_base_two'
 		deferred
 		end
 

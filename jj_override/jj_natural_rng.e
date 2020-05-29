@@ -12,7 +12,7 @@ note
 	author: "Jimmy J. Johnson"
 
 deferred class
-	JJ_RANDOM [G -> JJ_NATURAL]
+	JJ_NATURAL_RNG [G -> JJ_NATURAL]
 
 inherit
 
