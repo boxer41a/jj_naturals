@@ -17,17 +17,13 @@ feature {NONE} -- Initialization
 	make
 			-- Run application.
 		local
-			i: INTEGER
 			t: JJ_NATURAL_8_TESTS
-			r: JJ_RANDOMS_TESTER
 		do
 			clear_terminal
 				-- Make and run tests
 			create t
-			create r
---			t.run_all
-			r.run_all
-			io.put_string ("End test of random numbers %N")
+			t.run_all
+			io.put_string ("End test of JJ_NATURAL numbers %N")
 		end
 
 	clear_terminal

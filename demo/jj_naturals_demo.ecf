@@ -17,6 +17,7 @@
 				<assertions precondition="true"/>
 			</option>
 		</library>
+		<library name="jj_randoms" location="\Users\jjj\jj_github\jj_randoms\classes\jj_randoms.ecf"/>
 		<library name="testing" location="$ISE_LIBRARY\library\testing\testing-safe.ecf"/>
 		<cluster name="demo" location=".\" recursive="true">
 			<file_rule>
@@ -29,6 +30,7 @@
 				<exclude>/jj_override$</exclude>
 			</file_rule>
 		</cluster>
+        <cluster name="tests" location="..\tests"/>
 		<override name="jj_naturals_override" location="$JJ_GITHUB\jj_naturals\jj_override\"/>
 	</target>
 </system>

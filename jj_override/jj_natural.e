@@ -12,16 +12,13 @@
 				If was not defined as an attribute, because, according to
 				Manu, the compiler ignores, though it allows, attributes
 				when they are added to any basic type.
-			4) Declared as deferred most [if not all] the featues that are
-				defined in the original NATURAL_xx_REF classes.  Assertions
-				are included in these features but removed from the effected
-				versions.
+			4) 
 			5) Had to add `jj_item', requiring descendents to effect this
 				feature in order to wrap a call to `item', because declaring
 				`item' as deferred here gives "Redeclaration changes expansion
 				status error".
 				PROBLEM: this forces a feature call instead of direct access
-				through external implementation as before.
+				through "built-in" implementation as before.
 			6) Frozen features are declared here and deleted from decendents.
 			7) Moved the pre- and post-conditions of `integer_remainder'
 				up to {JJ_NATURAL}.  (Why do the other fetures not have

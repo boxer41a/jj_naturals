@@ -67,18 +67,18 @@ feature -- Basic operations
 
 	run_all
 		do
---			item
---			bit_count
---			one
---			zero
---			fifteen
---			min_value
---			max_value
---			is_less_1
---			is_less_2
---			is_less_3
---			is_less_4
---			byte_mask
+			item
+			bit_count
+			one
+			zero
+			fifteen
+			min_value
+			max_value
+			is_less_1
+			is_less_2
+			is_less_3
+			is_less_4
+			byte_mask
 			most_significant_bit
 		end
 
@@ -119,7 +119,7 @@ feature -- Test routines (Access)
 		do
 			feature_name := "bit_count"
 			value := value_8
-			test ("8", value.bit_count.out)
+			test ("8", {NATURAL_8}.bit_count.out)
 			value := value_16
 			test ("16", value.bit_count.out)
 			value := value_32

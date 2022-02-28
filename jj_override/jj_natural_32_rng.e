@@ -12,7 +12,8 @@ inherit
 	JJ_NATURAL_RNG [NATURAL_32]
 
 create
-	default_create
+	default_create,
+	from_array
 
 feature -- Access
 
