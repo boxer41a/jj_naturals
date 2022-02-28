@@ -1,4 +1,4 @@
-note
+﻿note
 	description: "[
 		References to objects containing a natural value coded on `bit_count'
 		number of bits.
@@ -193,21 +193,24 @@ feature -- Basic operations
 			Result.set_item (item + other.item)
 		end
 
-	minus alias "-" (other: like Current): like Current
+	minus alias "-" alias "−" (other: like Current): like Current
+--	minus alias "-" (other: like Current): like Current
 			-- Result of subtracting `other'
 		do
 			create Result
 			Result.set_item (item - other.item)
 		end
 
-	product alias "*" (other: like Current): like Current
+	product alias "*" alias "×" (other: like Current): like Current
+--	product alias "*" (other: like Current): like Current
 			-- Product by `other'
 		do
 			create Result
 			Result.set_item (item * other.item)
 		end
 
-	quotient alias "/" (other: like Current): REAL_64
+	quotient alias "/" alias "÷" (other: like Current): REAL_64
+--	quotient alias "/" (other: like Current): REAL_64
 			-- Division by `other'
 		require
 			other_exists: other /= Void
@@ -341,28 +344,32 @@ feature -- Conversion
 
 feature -- Bit operations
 
-	bit_and alias "&" (i: like Current): like Current
+	bit_and alias "&" alias "⊗" (i: like Current): like Current
+--	bit_and alias "&" (i: like Current): like Current
 			-- Bitwise and between Current' and `i'.
 		do
 			create Result
 			Result.set_item (item.bit_and (i.item))
 		end
 
-	bit_or alias "|" (i: like Current): like Current
+	bit_or alias "|" alias "⦶" (i: like Current): like Current
+--	bit_or alias "|" (i: like Current): like Current
 			-- Bitwise or between Current' and `i'.
 		do
 			create Result
 			Result.set_item (item.bit_or (i.item))
 		end
 
-	bit_xor (i: like Current): like Current
+	bit_xor alias "⊕" (i: like Current): like Current
+--	bit_xor (i: like Current): like Current
 			-- Bitwise xor between Current' and `i'.
 		do
 			create Result
 			Result.set_item (item.bit_xor (i.item))
 		end
 
-	bit_not: like Current
+	bit_not alias "⊝": like Current
+--	bit_not: like Current
 			-- One's complement of Current.
 		do
 			create Result
@@ -380,14 +387,16 @@ feature -- Bit operations
 			end
 		end
 
-	bit_shift_left alias "|<<" (n: INTEGER): like Current
+	bit_shift_left alias "|<<" alias "⧀" (n: INTEGER): like Current
+--	bit_shift_left alias "|<<" (n: INTEGER): like Current
 			-- Shift Current from `n' position to left.
 		do
 			create Result
 			Result.set_item (item.bit_shift_left (n))
 		end
 
-	bit_shift_right alias "|>>" (n: INTEGER): like Current
+	bit_shift_right alias "|>>" alias "⧁" (n: INTEGER): like Current
+--	bit_shift_right alias "|>>" (n: INTEGER): like Current
 			-- Shift Current from `n' position to right.
 		do
 			create Result

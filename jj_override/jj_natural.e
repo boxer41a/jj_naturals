@@ -1,4 +1,4 @@
-note
+﻿note
 	description: "[
 		This class is a new common ancestor to the	NATURAL_xx_REF classes setting
 		between NUMERIC and NATURAL_xx, mainly to abstract the bit-shift features.
@@ -224,7 +224,8 @@ feature -- Basic operations
 		deferred
 		end
 
-	opposite alias "-": like Current
+	opposite alias "-" alias "−": like Current
+--	opposite alias "-": like Current
 			-- Unary minus (not applicable).
 		do
 			check
@@ -620,7 +621,8 @@ feature -- Bit operations
 			result_small_enough: Result <= bit_count
 		end
 
-	bit_and alias "&" (i: like Current): like Current
+	bit_and alias "&" alias "⊗" (i: like Current): like Current
+--	bit_and alias "&" (i: like Current): like Current
 			-- Bitwise and between Current' and `i'.
 		require
 			i_not_void: i /= Void
@@ -629,7 +631,8 @@ feature -- Bit operations
 			bitwise_and_not_void: Result /= Void
 		end
 
-	bit_or alias "|" (i: like Current): like Current
+	bit_or alias "|" alias "⦶" (i: like Current): like Current
+--	bit_or alias "|" (i: like Current): like Current
 			-- Bitwise or between Current' and `i'.
 		require
 			i_not_void: i /= Void
@@ -638,7 +641,8 @@ feature -- Bit operations
 			bitwise_or_not_void: Result /= Void
 		end
 
-	bit_xor (i: like Current): like Current
+	bit_xor alias "⊕" (i: like Current): like Current
+--	bit_xor (i: like Current): like Current
 			-- Bitwise xor between Current' and `i'.
 		require
 			i_not_void: i /= Void
@@ -647,7 +651,8 @@ feature -- Bit operations
 			bitwise_xor_not_void: Result /= Void
 		end
 
-	bit_not: like Current
+	bit_not alias "⊝": like Current
+--	bit_not: like Current
 			-- One's complement of Current.
 		deferred
 		ensure
@@ -663,7 +668,8 @@ feature -- Bit operations
 		deferred
 		end
 
-	bit_shift_left alias "|<<" (n: INTEGER): like Current
+	bit_shift_left alias "|<<" alias "⧀" (n: INTEGER): like Current
+--	bit_shift_left alias "|<<" (n: INTEGER): like Current
 			-- Shift Current from `n' position to left.
 		require
 			n_nonnegative: n >= 0
@@ -673,7 +679,8 @@ feature -- Bit operations
 			bit_shift_left_not_void: Result /= Void
 		end
 
-	bit_shift_right alias "|>>" (n: INTEGER): like Current
+	bit_shift_right alias "|>>" alias "⧁" (n: INTEGER): like Current
+--	bit_shift_right alias "|>>" (n: INTEGER): like Current
 			-- Shift Current from `n' position to right.
 		require
 			n_nonnegative: n >= 0
