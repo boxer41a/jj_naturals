@@ -3,7 +3,7 @@ note
 		Eiffel tests that can be executed by testing tool.
 		
 		This must be duplicated for all the natural types, changing only `value_8'.
-		I tried anchored types, inheritance with anchors, and generict deferred
+		I tried anchored types, inheritance with anchors, and generic deferred
 		class as root; none of these worked with the automatic tester.
 	]"
 	author: "Jimmy J. Johnson"
