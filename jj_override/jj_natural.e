@@ -592,6 +592,26 @@ feature -- Bit operations
 			result_small_enough: Result <= bit_count
 		end
 
+	least_significant_bit: INTEGER
+			-- The index of the least significant bit that is set.
+			-- O(n) where n is the number of bits.
+		local
+			n: JJ_NATURAL
+			i: INTEGER
+		do
+				-- Naive approach.  Count shifts until `n' is not even.
+				-- An odd number will have a one in the right-most bit.
+			from n := Current
+			until not n.is_even or else n = zero
+			loop
+				Result := Result + 1
+				n := n.bit_shift_right (1)
+			end
+		ensure
+			zero_result_definition: Result = zero implies Current = zero
+			result_small_enough: Result <= bit_count
+		end
+
 	log_base_two: INTEGER
 			-- The base-2 log of Current
 		local
